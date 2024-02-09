@@ -79,14 +79,21 @@ export const saveRecipe = async (recipe: Recipe) => {
 };
 
 export const getAllRecipes = async (search?: string) => {
+  const user = await currentUser();
+  if (!user) {
+    return null;
+  }
+
   if (!search) {
     return prisma.recipe.findMany({
+      where: { owner: user.id },
       orderBy: { createdAt: "desc" },
     });
   }
 
   return prisma.recipe.findMany({
     where: {
+      owner: user.id,
       title: { contains: search },
     },
     orderBy: { createdAt: "desc" },
@@ -94,7 +101,12 @@ export const getAllRecipes = async (search?: string) => {
 };
 
 export const getRecipe = async (id: string) => {
+  const user = await currentUser();
+  if (!user) {
+    return null;
+  }
+
   return prisma.recipe.findUnique({
-    where: { id },
+    where: { id, owner: user.id },
   });
 };
