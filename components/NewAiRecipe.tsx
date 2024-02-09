@@ -38,7 +38,9 @@ const NewAiRecipe = () => {
   return (
     <>
       <form onSubmit={handleSubmit} className="max-w-2xl">
-        <h2 className="mb-4">Find new creative recipes</h2>
+        <h2 className="text-2xl mb-4 font-semibold text-primary">
+          Find new creative recipes
+        </h2>
         <div className="join w-full">
           <input
             type="text"

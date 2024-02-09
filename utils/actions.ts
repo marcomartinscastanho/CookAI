@@ -79,3 +79,18 @@ export const saveRecipe = async (recipe: Recipe) => {
     },
   });
 };
+
+export const getAllRecipes = async (search?: string) => {
+  if (!search) {
+    return prisma.recipe.findMany({
+      orderBy: { createdAt: "desc" },
+    });
+  }
+
+  return prisma.recipe.findMany({
+    where: {
+      title: { contains: search },
+    },
+    orderBy: { createdAt: "desc" },
+  });
+};
