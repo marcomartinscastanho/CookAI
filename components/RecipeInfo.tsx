@@ -25,7 +25,7 @@ const RecipeInfo: FC<Props> = ({ recipe }) => {
   return (
     <div className="flex flex-col max-w-4xl items-center">
       <h1 className="text-6xl font-semibold mb-6 text-center">{title}</h1>
-      <div className="flex justify-evenly pb-4 border-b border-base-300 mb-6 w-full">
+      <div className="flex justify-evenly pb-4 border-b border-base-200 mb-6 w-full">
         <div className="flex gap-2">
           <PiUsers className="h-6 w-6" />
           {portions} portions
