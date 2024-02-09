@@ -2,6 +2,21 @@
 
 A manager of cooking recipes that allows to generate recipes using AI.
 
+## Libraries
+
+- react-query
+- openai
+- react-hot-toast
+- react-icons
+- daisyui
+- prisma
+- tailwindcss
+
+## External services
+
+- [Clerk](clerk.com) - user authentication
+- [PlanetScale](planetscale.com) - hosting Prisma DB
+
 ## Planned Features
 
 - Light/dark theme
