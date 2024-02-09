@@ -12,15 +12,15 @@ datasource db {
 }
 
 model Recipe {
-  id           String   @id @default(uuid())
-  owner        String
-  title        String
-  descriptions String   @db.Text
-  portions     Int
-  prepTime     Int
-  cookTime     Int
-  ingredients  Json
-  steps        Json
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  id          String   @id @default(uuid())
+  owner       String
+  title       String
+  description String   @db.Text
+  portions    Int
+  prepTime    Int
+  cookTime    Int
+  ingredients Json
+  steps       Json
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }

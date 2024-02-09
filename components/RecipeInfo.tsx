@@ -1,5 +1,10 @@
-import { Recipe } from "@/types/recipes";
+import { Ingredient } from "@/types/recipes";
+import { saveRecipe } from "@/utils/actions";
+import { Recipe } from "@prisma/client";
+import Link from "next/link";
+import { redirect } from "next/navigation";
 import React, { FC } from "react";
+import toast from "react-hot-toast";
 import { PiUsers, PiCookingPot, PiKnife } from "react-icons/pi";
 
 interface Props {
@@ -16,6 +21,7 @@ const RecipeInfo: FC<Props> = ({ recipe }) => {
     ingredients,
     steps,
   } = recipe;
+
   return (
     <div className="flex flex-col max-w-4xl items-center">
       <h1 className="text-6xl font-semibold mb-6 text-center">{title}</h1>
@@ -47,7 +53,7 @@ const RecipeInfo: FC<Props> = ({ recipe }) => {
           <h2 className="text-2xl text-center mb-4">Ingredients</h2>
           <table className="table-auto border-separate border-spacing-y-2 w-full">
             <tbody>
-              {ingredients.map((ingredient) => (
+              {(ingredients as Ingredient[]).map((ingredient) => (
                 <tr key={ingredient.name} className="bg-base-100">
                   <td className="p-2 pl-4 rounded-l-xl">
                     {ingredient.quantity}
@@ -61,16 +67,16 @@ const RecipeInfo: FC<Props> = ({ recipe }) => {
         </div>
         <div>
           <h2 className="text-2xl text-center mb-4">Preparation Steps</h2>
-          {steps.map((step, index) => (
+          {(steps as string[]).map((step, index) => (
             <p key={index} className="mb-2 bg-base-100 py-2 px-4 rounded-xl">
               {step}
             </p>
           ))}
         </div>
       </div>
-      <button className="btn btn-primary" type="button">
-        SAVE RECIPE
-      </button>
+      <Link href="/recipes" className="btn btn-primary">
+        BACK TO THE LIST
+      </Link>
     </div>
   );
 };

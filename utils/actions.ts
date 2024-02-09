@@ -1,6 +1,9 @@
 "use server";
 import { AiRecipesResponse } from "@/types/recipes";
 import OpenAI from "openai";
+import prisma from "./db";
+import { Recipe } from "@prisma/client";
+import { currentUser } from "@clerk/nextjs";
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -33,8 +36,6 @@ If you can't find info on the recipe return { "recipe": null }, with no addition
       temperature: 0,
     });
 
-    console.log("ai response", response);
-
     const responseContent = response.choices[0].message.content;
     if (!responseContent) {
       throw new Error("could not parse response");
@@ -48,4 +49,33 @@ If you can't find info on the recipe return { "recipe": null }, with no addition
     console.error(error);
     return null;
   }
+};
+
+export const findRecipe = async (prompt: string) => {
+  const user = await currentUser();
+  if (!user) {
+    return null;
+  }
+
+  return prisma.recipe.findFirst({
+    where: { title: { contains: prompt }, owner: user.id },
+  });
+};
+
+export const saveRecipe = async (recipe: Recipe) => {
+  const user = await currentUser();
+  if (!user) {
+    return null;
+  }
+
+  console.log("saving", recipe);
+
+  return prisma.recipe.create({
+    data: {
+      ...recipe,
+      ingredients: recipe.ingredients || [],
+      steps: recipe.steps || [],
+      owner: user.id,
+    },
+  });
 };

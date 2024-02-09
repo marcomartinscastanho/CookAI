@@ -1,23 +1,29 @@
 "use client";
 import React, { FormEvent } from "react";
 import RecipeInfo from "./RecipeInfo";
-import { useMutation } from "@tanstack/react-query";
-import { generateAiRecipe } from "@/utils/actions";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { findRecipe, generateAiRecipe, saveRecipe } from "@/utils/actions";
 import toast from "react-hot-toast";
 
 const NewAiRecipe = () => {
+  const queryClient = useQueryClient();
+
   const {
     mutate: askForRecipe,
     isPending,
     data: recipe,
   } = useMutation({
     mutationFn: async (prompt: string) => {
-      const newAirecipe = await generateAiRecipe(prompt);
-      if (!newAirecipe) {
+      const existingRecipe = await findRecipe(prompt);
+      if (existingRecipe) return existingRecipe;
+      const newAiRecipe = await generateAiRecipe(prompt);
+      if (!newAiRecipe) {
         toast.error("Sorry, I could not find that recipe 😞");
         return null;
       }
-      return newAirecipe;
+      await saveRecipe(newAiRecipe);
+      queryClient.invalidateQueries({ queryKey: ["recipes"] });
+      return newAiRecipe;
     },
   });
 
@@ -28,10 +34,6 @@ const NewAiRecipe = () => {
     const prompt = Object.fromEntries(formData.entries())["recipe"];
     askForRecipe(String(prompt));
   };
-
-  if (isPending) {
-    return <span className="loading loading-lg"></span>;
-  }
 
   return (
     <>
@@ -44,9 +46,14 @@ const NewAiRecipe = () => {
             placeholder="Describe the recipe..."
             name="recipe"
             required
+            disabled={isPending}
           />
-          <button className="btn btn-primary join-item uppercase" type="submit">
-            generate recipe
+          <button
+            className="btn btn-primary join-item uppercase"
+            type="submit"
+            disabled={isPending}
+          >
+            {isPending ? "generating..." : "generate recipe"}
           </button>
         </div>
       </form>
