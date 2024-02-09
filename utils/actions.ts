@@ -81,7 +81,7 @@ export const saveRecipe = async (recipe: Recipe) => {
 export const getAllRecipes = async (search?: string) => {
   const user = await currentUser();
   if (!user) {
-    return null;
+    return [];
   }
 
   if (!search) {
