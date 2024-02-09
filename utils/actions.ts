@@ -68,8 +68,6 @@ export const saveRecipe = async (recipe: Recipe) => {
     return null;
   }
 
-  console.log("saving", recipe);
-
   return prisma.recipe.create({
     data: {
       ...recipe,
@@ -92,5 +90,11 @@ export const getAllRecipes = async (search?: string) => {
       title: { contains: search },
     },
     orderBy: { createdAt: "desc" },
+  });
+};
+
+export const getRecipe = async (id: string) => {
+  return prisma.recipe.findUnique({
+    where: { id },
   });
 };

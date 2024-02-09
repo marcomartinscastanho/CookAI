@@ -33,7 +33,7 @@ const Recipes = () => {
             onChange={handleChangeSearch}
           />
           <button
-            className="btn btn-primary join-item"
+            className="btn btn-secondary join-item"
             type="button"
             disabled={isPending}
             onClick={() => setSearch("")}

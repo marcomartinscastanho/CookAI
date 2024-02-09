@@ -8,10 +8,10 @@ const links = [
 
 const NavLinks = () => {
   return (
-    <ul className="menu text-base-content">
+    <ul className="menu text-base-content gap-2">
       {links.map((link) => (
         <li key={link.href}>
-          <Link href={link.href} className="capitalize">
+          <Link href={link.href} className="capitalize text-lg">
             {link.label}
           </Link>
         </li>

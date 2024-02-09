@@ -45,7 +45,7 @@ const NewAiRecipe = () => {
           <input
             type="text"
             className="input input-bordered join-item w-full"
-            placeholder="Describe the recipe..."
+            placeholder="What recipe are you looking for?"
             name="recipe"
             required
             disabled={isPending}

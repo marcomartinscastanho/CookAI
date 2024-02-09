@@ -14,21 +14,21 @@ const RecipeCard: FC<Props> = ({ recipe }) => {
       href={`/recipes/${id}`}
       className="card card-compact rounded-xl shadow-xl bg-base-100"
     >
-      <div className="card-body grid gird-col-[1fr,auto,auto]">
+      <div className="card-body">
         <h2 className="card-title">{title}</h2>
         <p className="text-sm">{description}</p>
-        <div className="flex flex-row justify-evenly pt-2 border-t border-base-200 w-full mt-2">
+        <div className="flex flex-row justify-evenly pt-2 border-t border-base-300 w-full mt-2">
           <div className="flex gap-2">
-            <PiUsers className="h-4 w-4" />
+            <PiUsers className="h-5 w-5" />
             {portions}
           </div>
           <div className="flex gap-2">
-            <PiKnife className="h-4 w-4" />
-            {prepTime}
+            <PiKnife className="h-5 w-5" />
+            {prepTime} min
           </div>
           <div className="flex gap-2">
-            <PiCookingPot className="h-4 w-4" />
-            {cookTime}
+            <PiCookingPot className="h-5 w-5" />
+            {cookTime} min
           </div>
         </div>
       </div>
