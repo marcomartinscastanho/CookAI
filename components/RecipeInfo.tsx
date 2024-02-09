@@ -55,11 +55,11 @@ const RecipeInfo: FC<Props> = ({ recipe }) => {
             <tbody>
               {(ingredients as Ingredient[]).map((ingredient) => (
                 <tr key={ingredient.name} className="bg-base-100">
-                  <td className="p-2 pl-4 rounded-l-xl">
+                  <td className="p-2 pl-4 rounded-l-lg">
                     {ingredient.quantity}
                   </td>
                   <td className="p-2 font-semibold">{ingredient.name}</td>
-                  <td className="p-2 pr-4 rounded-r-xl">{ingredient.spec}</td>
+                  <td className="p-2 pr-4 rounded-r-lg">{ingredient.spec}</td>
                 </tr>
               ))}
             </tbody>
@@ -68,7 +68,7 @@ const RecipeInfo: FC<Props> = ({ recipe }) => {
         <div>
           <h2 className="text-2xl text-center mb-4">Preparation Steps</h2>
           {(steps as string[]).map((step, index) => (
-            <p key={index} className="mb-2 bg-base-100 py-2 px-4 rounded-xl">
+            <p key={index} className="mb-2 bg-base-100 py-2 px-4 rounded-lg">
               {step}
             </p>
           ))}
