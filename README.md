@@ -2,6 +2,8 @@
 
 A manager of cooking recipes that allows to generate recipes using AI.
 
+The web application is live [here](https://cook-ai-self.vercel.app/) but since it's using Vercel's free tier which limits serverless functions to 10 seconds, large calls to OpenAI API time out.
+
 ## Libraries
 
 - react-query
